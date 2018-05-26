@@ -18,10 +18,10 @@ app.get('/retrieveMovies', function(req, res) {
 //use the request module to request movies from The Movie Database API
 let getMoviesByGenre = (genreNum, cb) => {
   let options = {
-    url: `https://api.themoviedb.org/3/discover/movie?api_key=${config.TOKEN}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreNum}`,
+    url: `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.token || config.TOKEN}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genreNum}`,
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}`
+      'Authorization': `token ${process.env.token || config.TOKEN}`
     }
   };
 

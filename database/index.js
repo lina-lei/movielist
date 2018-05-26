@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-// const {MLAB_TOKEN} = require('../config.js');
-mongoose.connect('mongodb://localhost/movielist');
-// mongoose.connect(MLAB_TOKEN);
+const {MLAB_TOKEN} = require('../config.js');
+// mongoose.connect('mongodb://localhost/movielist');
+mongoose.connect(process.env.mlabtoken || MLAB_TOKEN);
 
 const movieSchema = mongoose.Schema({
   id: {type: Number, unique: true},
@@ -11,6 +11,7 @@ const movieSchema = mongoose.Schema({
 });
 
 const Movie = mongoose.model('Movie', movieSchema);
+
 
 //FUNCTION TO RETRIEVE MOVIES FROM DB
 let retrieve = function(cb) {
