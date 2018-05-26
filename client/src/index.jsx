@@ -23,8 +23,7 @@ class App extends React.Component {
  
   search(searchMovie) {
     console.log('now searching:', searchMovie);
-    // console.log('SEARCH RESULTS APP', this.state.searchResults);
-    axios.get('/searchMovies')
+    axios.post('/searchMovies', {searchMovie: searchMovie})
       .then(results => {
         this.setState({
           searchResults: results.data
@@ -36,7 +35,6 @@ class App extends React.Component {
   fetchMovieList() {
     axios.get('/retrieveMovies')
       .then(data => {
-        // console.log('fetchmovielist:', data);
         this.setState({
           movies: data.data
         });
@@ -54,12 +52,14 @@ class App extends React.Component {
   //     .catch((err) => console.log('fetchSearchResults not working', err));
   // }
   
-  handleClick(item) {
+  handleClick(item) { //when search result is clicked on, add it to the DB to-watch list
     console.log('clicked! this is the search result you clicked:', item);
-    //when search result is clicked on, add it to the DB to-watch list
     axios.post('/saveMovie', {
       item: item
-    }).then((data) => console.log('handleClick is working', data))
+    }).then((data) => {
+        console.log('handleClick is working', data)
+        this.fetchMovieList();
+    })
       .catch((err) => console.log('handleClick err', err))
   }
 
@@ -74,6 +74,5 @@ class App extends React.Component {
     );
   }
 }
-
 
 ReactDOM.render(<App/>, document.getElementById('app'));

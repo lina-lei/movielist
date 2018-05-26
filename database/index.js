@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/movielist');
 // mongoose.connect(MLAB_TOKEN);
 
 const movieSchema = mongoose.Schema({
-  id: Number,
+  id: {type: Number, unique: true},
   title: String,
   release_date: Date,
   genre: String
@@ -48,8 +48,6 @@ let save = function(options, cb) {
 // save({id: 12, title: 'howlss moving castle', year: 2000, genre: 'anime15'}, (newMovie) => {
 //   console.log(newMovie)
 // })
-
-
 
 // let test = new Movie({ 
 //   title: 'Spirited Away',

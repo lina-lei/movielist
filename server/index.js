@@ -6,7 +6,8 @@ const bodyParser = require('body-parser');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //req.body will be empty if we don't use bodyParser!
+
 //ROUTE TO RETRIEVE MOVIES FROM DB
 app.get('/retrieveMovies', function(req, res) {
   retrieve(function(docs) { // get all the movies
@@ -34,8 +35,9 @@ let getMoviesByGenre = (genreNum, cb) => {
 // getMoviesByGenre('27', function(whatever) {console.log('answer is', whatever.results)});
 
 //ROUTE TO SEARCH AND DISPLAY SEARCH RESULTS
-app.get('/searchMovies', function(req, res) {
-  getMoviesByGenre('27', function(data) {
+app.post('/searchMovies', function(req, res) {
+  // console.log('what is reqbody for get', req.body.searchMovie);
+  getMoviesByGenre(req.body.searchMovie.toString(), function(data) {
     res.send(data.results);
   });
 });
@@ -43,21 +45,13 @@ app.get('/searchMovies', function(req, res) {
 //ROUTE TO SAVE MOVIES INTO DB
 app.post('/saveMovie', function(req, res) {
   //need to call save method from DB
-  console.log('what is reqbody:', req.body.item);
+  console.log('saving this movie into DB:', req.body.item);
   save(req.body.item, (err, data) => {
     if (err) console.log('error saving movie to DB', err);
     else res.status(21).send('movie successfully saved to list');
   });
-  // getMoviesByGenre('27', function(err, data) {
-  //   if (err) console.log('error saving horror movies to DB:', err);
-  //   console.log('the movie i wanna add is:', data);
-  // });
 });
 
-
-// for (let i = 0) {
-//   save(movies[i])
-// }
 
 app.listen(3000, function() {
   console.log('listening on port: ', 3000);
