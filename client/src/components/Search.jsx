@@ -22,9 +22,9 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>Search a movie here
+      <div>
         <input value={this.state.searchTerms} onChange={this.onChange}/>
-        <button onClick={this.search}>Search Movies</button>
+        <button onClick={this.search}>Search Genre</button>
       </div>
     )  
   }

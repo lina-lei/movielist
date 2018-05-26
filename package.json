@@ -15,10 +15,13 @@
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "nodemon": "^1.17.5"
+    "nodemon": "^1.17.5",
+    "webpack": "^2.3.3",
+    "webpack-cli": "^2.1.4"
   },
   "dependencies": {
     "axios": "0.18.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "5.1.2",
     "react": "^16.4.0",

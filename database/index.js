@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/movielist');
 const movieSchema = mongoose.Schema({
   id: Number,
   title: String,
-  year: Date,
+  release_date: Date,
   genre: String
 });
 
@@ -31,13 +31,13 @@ let save = function(options, cb) {
   //   }
   // })
 
-  // let optionsTransformed = {
-  //   id: options.id, 
-  //   title: options.title, 
-  //   year: options.release_date,
-  //   genre: 'horror'
-  // };
-  let newMovie = new Movie(options);
+  let optionsTransformed = {
+    id: options.id, 
+    title: options.title, 
+    release_date: options.release_date,
+    genre: 'horror'
+  };
+  let newMovie = new Movie(optionsTransformed);
   newMovie.save((err) => {
     if (err) {
       console.log('error saving to DB', err)

@@ -2,11 +2,11 @@ const express = require('express');
 const {save, retrieve} = require('../database/index.js');
 const request = require('request'); //for helper function
 const config = require('../config.js'); //for helper function
-
+const bodyParser = require('body-parser');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
-
+app.use(bodyParser.json());
 //ROUTE TO RETRIEVE MOVIES FROM DB
 app.get('/retrieveMovies', function(req, res) {
   retrieve(function(docs) { // get all the movies
@@ -25,7 +25,8 @@ let getMoviesByGenre = (genreNum, cb) => {
   };
 
   request.get(options, function(err, data) {
-    cb(JSON.parse(data.body));
+    // console.log('what i get back is ', data.body); 
+   cb(JSON.parse(data.body));
   });
 }
 
@@ -39,13 +40,18 @@ app.get('/searchMovies', function(req, res) {
   });
 });
 
-
 //ROUTE TO SAVE MOVIES INTO DB
-app.post('/saveMovies', function(req, res) {
-  getMoviesByGenre('27', function(err, data) {
-    if (err) console.log('error saving horror movies to DB:', err);
-    console.log('HORROR DATA IS:', data);
+app.post('/saveMovie', function(req, res) {
+  //need to call save method from DB
+  console.log('what is reqbody:', req.body.item);
+  save(req.body.item, (err, data) => {
+    if (err) console.log('error saving movie to DB', err);
+    else res.status(21).send('movie successfully saved to list');
   });
+  // getMoviesByGenre('27', function(err, data) {
+  //   if (err) console.log('error saving horror movies to DB:', err);
+  //   console.log('the movie i wanna add is:', data);
+  // });
 });
 
 
