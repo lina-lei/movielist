@@ -55,6 +55,6 @@ app.post('/saveMovie', function(req, res) {
 });
 
 
-app.listen(3000, function() {
-  console.log('listening on port: ', 3000);
+app.listen(process.env.PORT || 3000, function() {
+  console.log('listening on port: ', process.env.PORT || 3000);
 });
