@@ -48,7 +48,7 @@ app.post('/saveMovie', function(req, res) {
   console.log('saving this movie into DB:', req.body.item);
   save(req.body.item, (err, data) => {
     if (err) console.log('error saving movie to DB', err);
-    else res.status(21).send('movie successfully saved to list');
+    else res.status(201).send('movie successfully saved to list');
   });
 });
 

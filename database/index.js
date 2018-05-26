@@ -7,7 +7,7 @@ const movieSchema = mongoose.Schema({
   id: {type: Number, unique: true},
   title: String,
   release_date: Date,
-  genre: String
+  genre: Array
 });
 
 const Movie = mongoose.model('Movie', movieSchema);
@@ -35,7 +35,7 @@ let save = function(options, cb) {
     id: options.id, 
     title: options.title, 
     release_date: options.release_date,
-    genre: 'horror'
+    genre: options.genre_ids
   };
   let newMovie = new Movie(optionsTransformed);
   newMovie.save((err) => {
