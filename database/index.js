@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
-const {MLAB_TOKEN} = require('../config.js');
+let config = null;
+try{config = require('../config.js')}
+catch(err) {config = null}
 // mongoose.connect('mongodb://localhost/movielist');
-mongoose.connect(process.env.mlabtoken || MLAB_TOKEN);
+mongoose.connect(process.env.mlabtoken || config.MLAB_TOKEN);
 
 const movieSchema = mongoose.Schema({
   id: {type: Number, unique: true},
