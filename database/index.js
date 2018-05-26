@@ -30,16 +30,17 @@ let save = function(options, cb) {
   //     cb(newMovie)
   //   }
   // })
-  let optionsTransformed = {
-    id: options.id, 
-    title: options.title, 
-    year: options.release_date,
-    genre: 'horror'
-  };
-  let newMovie = new Movie(optionsTransformed);
+
+  // let optionsTransformed = {
+  //   id: options.id, 
+  //   title: options.title, 
+  //   year: options.release_date,
+  //   genre: 'horror'
+  // };
+  let newMovie = new Movie(options);
   newMovie.save((err) => {
     if (err) {
-      console.log('this is the error', err)
+      console.log('error saving to DB', err)
     }
   })
 }

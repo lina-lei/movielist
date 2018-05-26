@@ -29,20 +29,29 @@ let getMoviesByGenre = (genreNum, cb) => {
   });
 }
 
-//ROUTE TO SAVE MOVIES INTO DB
-app.post('/saveMovies', function(req, res) {
-  save(function(docs) {
-    
+//test helper function to see if actually getting movies from API
+// getMoviesByGenre('27', function(whatever) {console.log('answer is', whatever.results)});
+
+//ROUTE TO SEARCH AND DISPLAY SEARCH RESULTS
+app.get('/searchMovies', function(req, res) {
+  getMoviesByGenre('27', function(data) {
+    res.send(data.results);
   });
 });
 
-getMoviesByGenre('27', function(whatever) {console.log('answer is', whatever.results)});
+
+//ROUTE TO SAVE MOVIES INTO DB
+app.post('/saveMovies', function(req, res) {
+  getMoviesByGenre('27', function(err, data) {
+    if (err) console.log('error saving horror movies to DB:', err);
+    console.log('HORROR DATA IS:', data);
+  });
+});
+
 
 // for (let i = 0) {
-
 //   save(movies[i])
 // }
-
 
 app.listen(3000, function() {
   console.log('listening on port: ', 3000);

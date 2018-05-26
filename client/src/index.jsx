@@ -36,6 +36,12 @@ class App extends React.Component {
       .catch((err) => console.log('fetchMovieList not working', err));
   }
 
+  fetchHorror() {
+    axios.get()
+      .then()
+      .catch();
+  }
+
   render() {
     return (
       <div>
