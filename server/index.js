@@ -1,7 +1,9 @@
 const express = require('express');
 const {save, retrieve} = require('../database/index.js');
 const request = require('request'); //for helper function
-const config = require('../config.js'); //for helper function
+let config = null;
+try{config = require('../config.js')}
+catch(err) {config = null} //for helper function
 const bodyParser = require('body-parser');
 let app = express();
 
